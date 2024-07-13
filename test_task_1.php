@@ -1,41 +1,43 @@
 <?php
 
-// Èñïðàâüòå îøèáêè â ïðèâåäåííîì íèæå êîäå. Âàø èñïðàâëåííûé êîä äîëæåí êîððåêòíî âûïîëíÿòü ïîñòàâëåííûå çàäà÷è
+// Ð˜ÑÐ¿Ñ€Ð°Ð²ÑŒÑ‚Ðµ Ð¾ÑˆÐ¸Ð±ÐºÐ¸ Ð² Ð¿Ñ€Ð¸Ð²ÐµÐ´ÐµÐ½Ð½Ð¾Ð¼ Ð½Ð¸Ð¶Ðµ ÐºÐ¾Ð´Ðµ. Ð’Ð°Ñˆ Ð¸ÑÐ¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð½Ñ‹Ð¹ ÐºÐ¾Ð´ Ð´Ð¾Ð»Ð¶ÐµÐ½ ÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ð¾ Ð²Ñ‹Ð¿Ð¾Ð»Ð½ÑÑ‚ÑŒ Ð¿Ð¾ÑÑ‚Ð°Ð²Ð»ÐµÐ½Ð½Ñ‹Ðµ Ð·Ð°Ð´Ð°Ñ‡Ð¸
 
 /**
-* Âû÷èñëÿåò ëîãàðèôì
+* Ð’Ñ‹Ñ‡Ð¸ÑÐ»ÑÐµÑ‚ Ñ„Ð°ÐºÑ‚Ð¾Ñ€Ð¸Ð°Ð»
 */
-function calculateFactorial(float $number): floor {
-  if ($number = 0) {
-    return 1
+function calculateFactorial(float $number): float {
+  if ($number == 0) {
+    return 1;
   } else {
-    return $number * calculateFactorial($number + 1)
+    return $number * calculateFactorial($number - 1);
   }
 }
 
 /**
-* Ïðîâåðÿåò, ÿâëÿåòñÿ ëè ÷èñëî ïðîñòûì
+* ÐŸÑ€Ð¾Ð²ÐµÑ€ÑÐµÑ‚, ÑÐ²Ð»ÑÐµÑ‚ÑÑ Ð»Ð¸ Ñ‡Ð¸ÑÐ»Ð¾ Ð¿Ñ€Ð¾ÑÑ‚Ñ‹Ð¼
  */
-function isPrime($num) {
+function isPrime(int $num): bool {
   if ($num <= 1) {
     return false;
   }
-  for ($i = 2; $i <= Math.sqrt($num); $i+) {
-    if ($num % $i = 0) {
-      return true;
+
+  for ($i = 2; $i <= sqrt($num); $i++) {
+    if ($num % $i == 0) {
+      return false;
     }
   }
+  
   return true;
 }
 
-echo "Ââåäèòå ÷èñëî: ";
+echo "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ‡Ð¸ÑÐ»Ð¾: ";
 $number = readline();
-echo 'Ôàêòîðèàë $number is: ' . calculateFactorial($numper) . '\n';
+echo "Ð¤Ð°ÐºÑ‚Ð¾Ñ€Ð¸Ð°Ð» $number is: " . calculateFactorial($number) . "\n";
 
 if (isPrime($number)) {
-  echo '$number - ýòî ïðîñòîå ÷èñëî.\n';
+  echo "$number - ÑÑ‚Ð¾ Ð¿Ñ€Ð¾ÑÑ‚Ð¾Ðµ Ñ‡Ð¸ÑÐ»Ð¾.\n";
 } else {
-  echo '$number - ýòî íå ïðîñòîå ÷èñëî.\n';
+  echo "$number - ÑÑ‚Ð¾ Ð½Ðµ Ð¿Ñ€Ð¾ÑÑ‚Ð¾Ðµ Ñ‡Ð¸ÑÐ»Ð¾.\n";
 }
 
 ?>
