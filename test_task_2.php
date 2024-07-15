@@ -3,9 +3,9 @@
 // В этом задании вам нужно исправить ошибки в предоставленном коде. Код имеет несколько логических и синтаксических ошибок, которые необходимо найти и исправить.
 
 abstract class Animal {
-  protected $name;
+  private string $name;
 
-  protected function __construct($name) {
+  public function __construct(string $name) {
     $this->name = $name;
   }
 
@@ -13,11 +13,11 @@ abstract class Animal {
     return $this->name;
   }
 
-  abstract protected function makeSound(): string;
+  abstract public function makeSound(): string;
 }
 
 class Dog extends Animal {
-  protected ?string $breed;
+  private ?string $breed;
 
   public function __construct(string $name, string $breed = null) {
     parent::__construct($name);
@@ -27,13 +27,13 @@ class Dog extends Animal {
   public function makeSound(): string {
     return "Woof";
   }
+
+  public function getBreed(): ?string {
+    return $this->breed;
+  }
 }
 
 class Cat extends Animal {
-  public function __construct(string $name) {
-    parent::__construct($name);
-  }
-
   public function makeSound(): string {
     return "Meow";
   }
@@ -43,8 +43,8 @@ $rex = new Dog("Rex", "Labrador");
 $stooped = new Dog("Stooped");
 $murka = new Cat("Murka");
 
-echo "Labrador " . $rex->getName() . " says " . $rex->makeSound() . "\n";
-echo "Dog " . $stooped->getName() . " says " . $stooped->makeSound() . "\n";
+echo ($rex->getBreed() ?? "Dog") . " " . $rex->getName() . " says " . $rex->makeSound() . "\n";
+echo ($stooped->getBreed() ?? "Dog") . " " . $stooped->getName() . " says " . $stooped->makeSound() . "\n";
 echo "Cat " . $murka->getName() . " says " . $murka->makeSound() . "\n";
 
 // Ожидаемый результат работы программы
