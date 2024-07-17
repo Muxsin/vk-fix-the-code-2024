@@ -11,11 +11,54 @@ class ConfigReader {
   public const LOCALE_EN = 'en';
 }
 
+class Translator {
+  public string $locale;
+
+  public function __construct(string $locale) {
+    $this->locale = $locale;
+  }
+
+  private array $data = [
+    'Dog' => [
+      'ru' => 'Собака',
+      'en' => 'Dog',
+    ],
+    'Cat' => [
+      'ru' => 'Кошка',
+      'en' => 'Cat',
+    ],
+    'Labrador' => [
+      'ru' => 'Лабрадор',
+      'en' => 'Labrador',
+    ],
+    'Woof' => [
+      'ru' => 'Гав',
+      'en' => 'Woof',
+    ],
+    'Meow' => [
+      'ru' => 'Мяу',
+      'en' => 'Meow',
+    ],
+    '%s %s says %s' => [
+      'ru' => '%s %s говорит %s',
+      'en' => '%s %s says %s',
+    ],
+  ];
+
+  public function translate(string $key) {
+    return $this->data[$key][$this->locale] ?? $key;
+  }
+}
+
 class Controller {
-  // тут нужно дописать код
+  public Translator $translator;
+  
+  public function __construct(string $locale) {
+    $this->translator = new Translator($locale);
+  }
 
   public function index() {
-    $rex = new Dog('Rex');
+    $rex = new Dog('Rex', 'Labrador');
     $murka = new Cat('Мурка');
 
     $this->showLine($rex);
@@ -23,7 +66,32 @@ class Controller {
   }
 
   public function showLine(Animal $animal) {
-    // тут нужно написать код
+    $sentence = $this->translator->translate("%s %s says %s") . "\n";
+    $name = $this->translator->translate($animal->getName());
+    $sound = $this->translator->translate($animal->makeSound());
+
+    if ($animal instanceof Dog) {
+      printf(
+        $sentence,
+        $this->translator->translate($animal->getBreed() ?? 'Dog'),
+        $name,
+        $sound
+      );
+    } else if ($animal instanceof Cat) {
+      printf(
+        $sentence,
+        $this->translator->translate('Cat'),
+        $name,
+        $sound
+      );
+    } else {
+      printf(
+        $sentence,
+        $this->translator->translate('Animal'),
+        $name,
+        $sound
+      );
+    }
   }
 }
 
